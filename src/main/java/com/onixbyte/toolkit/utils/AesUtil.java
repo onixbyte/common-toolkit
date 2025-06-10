@@ -82,13 +82,13 @@ public final class AesUtil {
     }
 
     /**
-     * Encrypts the specified data using the AES algorithm with the provided secret key.
+     * Encrypts the specified data using the AES algorithm in CBC mode with the given secret key and IV parameter.
      *
-     * @param data        the data to be encrypted
-     * @param secret      the secret key used for encryption
-     * @param ivParamSpec
-     * @return the encrypted data as a byte array
-     * @throws GeneralSecurityException if any cryptographic error occurs during encryption
+     * @param data        the byte array containing the data to be encrypted
+     * @param secret      the byte array representing the secret key for encryption
+     * @param ivParamSpec the byte array specifying the initialisation vector (IV) for the cipher
+     * @return a byte array containing the encrypted data
+     * @throws GeneralSecurityException if an error occurs during the encryption process, such as invalid key or cipher configuration
      */
     public static byte[] encrypt(byte[] data, byte[] secret, byte[] ivParamSpec) throws GeneralSecurityException {
         var secretKeySpec = new SecretKeySpec(new SecretKeySpec(secret, AES).getEncoded(), AES);
@@ -102,7 +102,7 @@ public final class AesUtil {
      *
      * @param data        the data to be decrypted
      * @param secret      the secret key used for decryption
-     * @param ivParamSpec
+     * @param ivParamSpec the byte array specifying the initialisation vector (IV) for the cipher
      * @return the decrypted data as a byte array
      * @throws GeneralSecurityException if any cryptographic error occurs during decryption
      */
@@ -114,13 +114,15 @@ public final class AesUtil {
     }
 
     /**
-     * Encrypts the specified string data using the AES algorithm with the provided secret key.
+     * Encrypts the specified string data using the AES algorithm in CBC mode with the provided secret key and
+     * IV parameter.
      *
      * @param data        the string data to be encrypted
      * @param secret      the secret key used for encryption
-     * @param ivParamSpec
-     * @return the encrypted data encoded in Base64
-     * @throws GeneralSecurityException if any cryptographic error occurs during encryption
+     * @param ivParamSpec the initialization vector (IV) used for the cipher
+     * @return the encrypted data encoded as a Base64 string
+     * @throws GeneralSecurityException if an error occurs during encryption, such as invalid key or
+     *                                  cipher configuration
      */
     public static String encrypt(String data, String secret, String ivParamSpec) throws GeneralSecurityException {
         return Base64.getEncoder().encodeToString(encrypt(
@@ -147,7 +149,7 @@ public final class AesUtil {
      *
      * @param data        the Base64-encoded string data to be decrypted
      * @param secret      the secret key used for decryption
-     * @param ivParamSpec
+     * @param ivParamSpec the initialization vector (IV) used for the cipher
      * @return the decrypted string data
      * @throws GeneralSecurityException if any cryptographic error occurs during decryption
      */
@@ -173,9 +175,9 @@ public final class AesUtil {
     }
 
     /**
-     * Generates 16-character random secret.
+     * Generates 16-character-long random secret.
      *
-     * @return the generated secure secret
+     * @return a generated secure secret
      */
     public static String generateRandomSecret() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 16);
