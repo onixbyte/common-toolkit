@@ -60,8 +60,9 @@ import java.util.UUID;
  * }</pre>
  *
  * @author hubin@baomidou
- * @version 1.1.0
- * @since 1.1.0
+ * @author zihluwang
+ * @author siujamo
+ * @version 3.0.0
  */
 public final class AesUtil {
 
